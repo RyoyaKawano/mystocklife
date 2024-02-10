@@ -139,7 +139,7 @@ def main_stock():
             startdate = str(datetime.today().year) + '-01-01'
 
 
-
+"""
         if(request.form.get('input_code') != None):
             stock_code = str(request.form['input_code'])
             if not stock_code in stocklist['コード'].astype(str).values:
@@ -160,7 +160,7 @@ def main_stock():
                 with open('data/data.json', 'w') as f:
                     json.dump(data_json, f, indent=2)
 
-
+"""
         if(stock_code == None):
                 stock_code = previous_data['stock_code']
                 stock_name = previous_data['stock_name']
