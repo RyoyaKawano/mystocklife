@@ -15,7 +15,6 @@ import json
 import jpholiday
 from bs4 import BeautifulSoup
 
-
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def main_stock():
