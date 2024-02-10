@@ -139,31 +139,8 @@ def main_stock():
             startdate = str(datetime.today().year) + '-01-01'
 
 
-"""
-        if(request.form.get('input_code') != None):
-            stock_code = str(request.form['input_code'])
-            if not stock_code in stocklist['コード'].astype(str).values:
-              if(stock_name == None):
-                    return render_template('index.html')
-              else:    
-                stock_code = previous_data['stock_code']
-                stock_name = previous_data['stock_name']
-            else:
- 
-                desired_index = stocklist[stocklist['コード'].astype(str) == stock_code].index[0]  # 'ニッソウ'に一致する最初の行のインデックスを取得します
-                stock_name = stocklist.loc[desired_index, '銘柄名']  # 指定したインデックスの'コード'列の値を取得します
 
-                data_json = {
-                    'stock_name': stock_name,
-                    'stock_code': stock_code
-                }
-                with open('data/data.json', 'w') as f:
-                    json.dump(data_json, f, indent=2)
 
-"""
-        if(stock_code == None):
-                stock_code = previous_data['stock_code']
-                stock_name = previous_data['stock_name']
 
         stock_code_T = stock_code + ".T"
         # startdate = str(startdate)
@@ -207,10 +184,10 @@ def main_stock():
         buf = BytesIO()
         fig.savefig(buf, format="png")
         n225_graph = base64.b64encode(buf.getbuffer()).decode("ascii")
-  
+
 
         url = "https://www.nikkei.com/nkd/company/kessan/?scode="+stock_code
-  
+
         response = requests.get(url)
         html = response.text
 
