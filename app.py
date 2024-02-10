@@ -33,10 +33,11 @@ def main_stock():
 
         url = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls"
         r = requests.get(url)
-        with open('data_j.xls', 'wb') as output:
-            output.write(r.content)
-        APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+    　  APP_ROOT = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(APP_ROOT, 'static', 'data_j.xls')
+        with open(file_path, 'wb') as output:
+            output.write(r.content)
+
         stocklist = pd.read_excel(file_path)
 
         stocklist.loc[stocklist["市場・商品区分"]=="市場第一部（内国株）",
