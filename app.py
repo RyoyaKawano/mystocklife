@@ -23,7 +23,7 @@ def main_stock():
     if request.method == 'POST':
         stock_code = None
         stock_name = None
-
+        """
         with open('data/data.json', encoding='utf-8') as f:
             previous_data = json.load(f)
 
@@ -67,7 +67,9 @@ def main_stock():
 
 
     
-
+        """
+        stock_code = str(9432)
+        stock_name = "日本電信電話"
         enddate= date.today()
 
         if(request.form.get('years1') != None):
