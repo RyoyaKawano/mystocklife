@@ -35,7 +35,7 @@ def main_stock():
         with open('data_j.xls', 'wb') as output:
             output.write(r.content)
 
-        stocklist = pd.read_excel("./data_j.xls", engine="openpyxl")
+        stocklist = pd.read_excel("./data_j.xls")
 
         stocklist.loc[stocklist["市場・商品区分"]=="市場第一部（内国株）",
                     ["コード","銘柄名","33業種コード","33業種区分","規模コード","規模区分"]
