@@ -14,6 +14,7 @@ import calendar
 import json
 import jpholiday
 from bs4 import BeautifulSoup
+import os
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
