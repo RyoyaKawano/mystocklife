@@ -1,5 +1,4 @@
 import requests
-import render
 import yfinance as yf
 import pandas as pd
 import matplotlib
@@ -15,7 +14,7 @@ import calendar
 import json
 import jpholiday
 from bs4 import BeautifulSoup
-
+from graph import app
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
