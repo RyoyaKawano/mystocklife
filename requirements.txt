@@ -1,6 +1,6 @@
 requests
 yfinance
-pandas==1.4.3
+pandas==2.0.1
 matplotlib
 datetime
 flask 
