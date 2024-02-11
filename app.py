@@ -187,8 +187,8 @@ def main_stock():
         fig.savefig(buf, format="png")
         graph_data = base64.b64encode(buf.getbuffer()).decode("ascii")
 
-        ax2 = Figure()
-        ax2 = fig.subplots()
+        fig2 = Figure()
+        ax2 = fig2.subplots()
         ax2.plot(n225_df.index, n225_df['Close'], color='white', linewidth=1.2)
         # プロットのラベルやタイトルを設定
 
@@ -202,9 +202,9 @@ def main_stock():
         # 解像度の調整
         plt.tight_layout() 
         ax2.set_facecolor('black')
-        fig.patch.set_facecolor('black') 
+        fig2.patch.set_facecolor('black') 
         buf = BytesIO()
-        fig.savefig(buf, format="png")
+        fig2.savefig(buf, format="png")
         n225_graph = base64.b64encode(buf.getbuffer()).decode("ascii")
   
 
