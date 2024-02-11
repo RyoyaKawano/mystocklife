@@ -23,7 +23,7 @@ def main_stock():
     if request.method == 'POST':
         stock_code = None
         stock_name = None
-        """
+
         with open('data/data.json', encoding='utf-8') as f:
             previous_data = json.load(f)
 
@@ -33,8 +33,8 @@ def main_stock():
 
         url = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls"
         r = requests.get(url)
-
-        file_path = "/var/www/data_j.xls"
+        APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(APP_ROOT, 'static', 'data_j.xls')
         with open(file_path, 'wb') as output:
             output.write(r.content)
 
@@ -67,9 +67,7 @@ def main_stock():
 
 
     
-        """
-        stock_code = str(9432)
-        stock_name = "日本電信電話"
+
         enddate= date.today()
 
         if(request.form.get('years1') != None):
@@ -140,7 +138,30 @@ def main_stock():
 
 
 
+        if(request.form.get('input_code') != None):
+            stock_code = str(request.form['input_code'])
+            if not stock_code in stocklist['コード'].astype(str).values:
+              if(stock_name == None):
+                    return render_template('index.html')
+              else:    
+                stock_code = previous_data['stock_code']
+                stock_name = previous_data['stock_name']
+            else:
+ 
+                desired_index = stocklist[stocklist['コード'].astype(str) == stock_code].index[0]  # 'ニッソウ'に一致する最初の行のインデックスを取得します
+                stock_name = stocklist.loc[desired_index, '銘柄名']  # 指定したインデックスの'コード'列の値を取得します
 
+                data_json = {
+                    'stock_name': stock_name,
+                    'stock_code': stock_code
+                }
+                with open('data/data.json', 'w') as f:
+                    json.dump(data_json, f, indent=2)
+
+
+        if(stock_code == None):
+                stock_code = previous_data['stock_code']
+                stock_name = previous_data['stock_name']
 
         stock_code_T = stock_code + ".T"
         # startdate = str(startdate)
@@ -184,10 +205,10 @@ def main_stock():
         buf = BytesIO()
         fig.savefig(buf, format="png")
         n225_graph = base64.b64encode(buf.getbuffer()).decode("ascii")
-
+  
 
         url = "https://www.nikkei.com/nkd/company/kessan/?scode="+stock_code
-
+  
         response = requests.get(url)
         html = response.text
 
