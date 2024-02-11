@@ -180,6 +180,7 @@ def main_stock():
         ax.tick_params(axis='x', rotation=25, colors='white')
         ax.tick_params(axis='y', colors='white') 
         ax.grid(True, linestyle='--', color='white')
+        ax2.set_title("Fluctuation of Stock Prices", color="white", fontweight='bold')
         ax.set_facecolor('black')
         fig.patch.set_facecolor('black') 
         buf = BytesIO()
