@@ -261,7 +261,7 @@ def main_stock():
 
     else:
      
-        html = render_template('index.html',table=None)
+        html = render_template('index.html',table=None, graph_data=None)
     return html
 
     # # return html
