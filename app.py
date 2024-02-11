@@ -14,6 +14,7 @@ import calendar
 import json
 import jpholiday
 from bs4 import BeautifulSoup
+from urllib.request import urlopen
 import os
 
 app = Flask(__name__)
@@ -31,12 +32,15 @@ def main_stock():
 
           return render_template('index.html')
 
-        url = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls"
-        r = requests.get(url)
+
         APP_ROOT = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(APP_ROOT, 'static', 'data_j.xls')
-        with open(file_path, 'wb') as output:
-            output.write(r.content)
+
+        if not os.path.isfile(file_path):
+            url = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls"
+            r = requests.get(url)
+            with open(file_path, 'wb') as output:
+                output.write(r.content)
 
         stocklist = pd.read_excel(file_path)
 
@@ -255,9 +259,33 @@ def main_stock():
         # 列の順序を調整する
         df = df[['日付', '売上高', '営業利益', '経常利益', '当期利益', '1株利益', '1株配当', '1株純利益', 'ROE', '営業利益率', '自己資本比率']]
 
+        html_qoq     = urlopen("https://www.nikkei.com/markets/kigyo/money-schedule/kessan/?ResultFlag=3&kwd="+str(stock_code))
+        bsObj        = BeautifulSoup(html_qoq, "html.parser")
+        table        = bsObj.find("div", {"class":"m-newpresSearchResults"}).find("tr",{"class":"tr2"})
+        meigara_info = table.find_all("a")
+        kessan_day   = table.find("th").find(text=True)
+        
+        kessanki_info = table.find_all("td")
+        for item in range(len(kessanki_info)):
+            if "期" in kessanki_info[item].find(text=True):
+                kessanki       = kessanki_info[item].find(text=True)
+                kessan_syubetu = kessanki_info[item+1].find(text=True).replace("\xa0","")+"決算"
 
 
-        html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name, time_period=time_period, table =df)
+        # =====================================================
+        # 結果出力
+        # =====================================================
+        
+        closing_schedule = pd.DataFrame()
+        # df["銘柄コード"] = pd.Series(meigara_code)
+        # df["銘柄名"]     = pd.Series(meigara_name)
+        closing_schedule["決算発表日"] = pd.Series(kessan_day)
+        closing_schedule["決算期"]    = pd.Series(kessanki)
+        closing_schedule["決算種別"]  = pd.Series(kessan_syubetu)
+
+
+
+        html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name, time_period=time_period, table=df, closing_schedule=closing_schedule)
 
     else:
      

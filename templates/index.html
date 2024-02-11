@@ -101,6 +101,49 @@
     </tbody>
 </table>
 {% endif %}
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ <table class="styled-table">
+    <thead>
+        <tr>
+            <th>{{ closing_schedule.columns[0] }}</th>
+            <th>{{ closing_schedule.columns[1] }}</th>
+            <th>{{ closing_schedule.columns[2] }}</th>
 
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in closing_schedule.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][1] }}</td>
+            <td>{{ row[1][2] }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>.columns[0] }}</th>
+            <th>{{ table.columns[5] }}</th>
+            <th>{{ table.columns[6] }}</th>
+            <th>{{ table.columns[7] }}</th>
+            <th>{{ table.columns[8] }}</th>
+            <th>{{ table.columns[9] }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table.iterrows() %}
+        <tr>
+            <td>{{ row[1][0] }}</td>
+            <td>{{ row[1][5] }}</td>
+            <td>{{ row[1][6] }}</td>
+            <td>{{ row[1][7] }}</td>
+            <td>{{ row[1][8] }}</td>
+            <td>{{ row[1][9] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 </body>
 </html>
