@@ -26,8 +26,15 @@ I have constructed a website summarizing stock price fluctuations, Nikkei averag
    - Used for easy installation of dependencies using pip.
 
 ## Render
-[guide: how to build Render.](https://qiita.com/kizataka/items/10693e87f726a95499e4)
-:+1:
+guide : [how to build Render.](https://qiita.com/kizataka/items/10693e87f726a95499e4):+1:
+
+# To access the app
+You can launch this application from the following link.
+
+[app link](https://mystocklife2.onrender.com/)
+
+
+
 
 
 
