@@ -8,7 +8,7 @@ pybase64
 datetime
 jpholiday
 bs4==0.0.1
-xlrd==1.0.0
+xlrd==2.0.1
 openpyxl
 gunicorn
 
