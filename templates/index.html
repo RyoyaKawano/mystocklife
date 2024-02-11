@@ -30,7 +30,6 @@
     <button type="submit">送信</button>
 
 </form>
-<p>{{ time_period }}</p>
 
 <form  method="post">
     <button value="true" name="years10" type="submit">10年</button>
@@ -42,6 +41,8 @@
     <button value="true" name="days1" type="submit">1日</button>
     <button value="true" name="year_first" type="submit">年初来</button>
 </form>
+
+<p>{{ time_period }}</p>
 
 <!--<p>株価の推移</p>-->
 {% if graph_data is not none%}
