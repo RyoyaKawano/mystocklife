@@ -21,6 +21,17 @@
     <button type="submit">送信</button>
 </form>
 <p>グラフの周期を入力してください</p>
+
+
+<form  method="post">
+    <input name="start_input"  placeholder="YYYY-MM-dd" type="text"></input>
+    <input name="end_input"  placeholder="YYYY-MM-dd" type="text"></input>
+    <button type="submit">送信</button>
+
+</form>
+<p>{{ stock_name_show }}</p>
+<p>{{ time_period }}</p>
+
 <form  method="post">
     <button value="true" name="years10" type="submit">10年</button>
     <button value="true" name="years5" type="submit">5年</button>
@@ -32,19 +43,13 @@
     <button value="true" name="year_first" type="submit">年初来</button>
 </form>
 
-<form  method="post">
-    <input name="start_input"  placeholder="YYYY-MM-dd" type="text"></input>
-    <input name="end_input"  placeholder="YYYY-MM-dd" type="text"></input>
-    <button type="submit">送信</button>
-
-</form>
-<p>{{ stock_name_show }}</p>
-<p>{{ time_period }}</p>
-         
 <!--<p>株価の推移</p>-->
+{% if graph_data is not none%}
 <img src="data:image/png;base64,{{graph_data}}"/>
-<p>日経平均</p>
+<!--<p>日経平均</p>-->
 <img src="data:image/png;base64,{{n225_graph}}"/>
+{% endif %}
+
 {% if table is not none%}
 <p>財務情報</p>
 
