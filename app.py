@@ -262,7 +262,6 @@ def main_stock():
         html_qoq     = urlopen("https://www.nikkei.com/markets/kigyo/money-schedule/kessan/?ResultFlag=3&kwd="+str(stock_code))
         bsObj        = BeautifulSoup(html_qoq, "html.parser")
         table        = bsObj.find("div", {"class":"m-newpresSearchResults"}).find("tr",{"class":"tr2"})
-        meigara_info = table.find_all("a")
         kessan_day   = table.find("th").find(text=True)
         
         kessanki_info = table.find_all("td")
@@ -296,5 +295,3 @@ def main_stock():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=4444)
-
-#    <img src="data:image/png;base64,{{gprah_data}}"/>
