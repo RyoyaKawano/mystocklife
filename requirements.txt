@@ -10,7 +10,6 @@ jpholiday
 bs4==0.0.1
 xlrd==2.0.1
 openpyxl
-urllib
 gunicorn
 
 
