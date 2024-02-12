@@ -50,8 +50,9 @@ img {
 .styled-table th,
 .styled-table td {
     padding: 8px;
-    text-align: left;
+    text-align: right;
     border-bottom: 1px solid #ddd;
+
 }
 
 .styled-table th {
