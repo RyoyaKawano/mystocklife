@@ -277,7 +277,7 @@ def main_stock():
         # 列の順序を調整する
         df = df[['日付', '売上高', '営業利益', '経常利益', '当期利益', '1株利益', '1株配当', '1株純利益', 'ROE', '営業利益率', '自己資本比率']]
 
-        html_qoq     = urlopen(f"https://www.nikkei.com/markets/kigyo/money-schedule/kessan/?ResultFlag=3&kwd="+str(stock_code))
+        html_qoq     = urlopen("https://www.nikkei.com/markets/kigyo/money-schedule/kessan/?ResultFlag=3&kwd="+str(stock_code))
         bsObj        = BeautifulSoup(html_qoq, "html.parser")
         table        = bsObj.find("div", {"class":"m-newpresSearchResults"}).find("tr",{"class":"tr2"})
         kessan_day   = table.find("th").find(text=True)
@@ -301,7 +301,7 @@ def main_stock():
         closing_schedule["決算種別"]  = pd.Series(kessan_syubetu)
 
 
-        html_qoq     = urlopen("https://kabutan.jp/stock/finance?code={stock_code}#hanki_name")
+        html_qoq     = urlopen(f"https://kabutan.jp/stock/finance?code={stock_code}#hanki_name")
         bsObj        = BeautifulSoup(html_qoq, "html.parser")
         table        = bsObj.find("div", {"class":"fin_year_t0_d fin_year_result_d"})
         for tag in table.findAll(["img", "a"]):
