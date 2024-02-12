@@ -184,7 +184,8 @@ def main_stock():
         cashflow_df['日付'] = cashflow_df.index.strftime('%Y/%m')
         cashflow_df = cashflow_df[['日付', 'Free Cash Flow', 'Operating Cash Flow', 'Investing Cash Flow', 'Financing Cash Flow']]
         cashflow_df = cashflow_df.rename(columns={'Free Cash Flow': 'フリーキャッシュフロー', 'Operating Cash Flow': '営業キャッシュフロー', 'Investing Cash Flow': '投資キャッシュフロー', 'Financing Cash Flow':'財務キャッシュフロー'})
-        # インデックスをリセットして、'日付' 列が通常の列となるようにする
+        for col in cashflow_df.columns[1:]:
+            cashflow_df[col] = cashflow_df[col].apply(lambda x: '{:,}'.format(x))
 
         cashflow_df = cashflow_df[::-1]
         cashflow_df.reset_index(drop=True, inplace=True)
