@@ -314,7 +314,8 @@ def main_stock():
             predict_list.append(td_tag.text.replace('\n', '~').replace('\xa0', '~'))
         predict_list = predict_list[1].split('~')
         print(predict_list)
-        predict_list = [item for item in predict_list if item.replace('.', '', 1).replace(',', '').replace('-', '').isdigit() or item == '－' or re.match(r'^-?[\d,\.]+(\*)?(倍)?$', item.strip())  or item == "赤縮" or item=="赤拡" or re.match(r'\d{2}/\d{2}/\d{2}', item.strip()) ]
+        predict_list = [item for item in predict_list if item.replace('.', '', 1).replace(',', '').replace('-', '').isdigit() or item == '－' or re.match(r'^[-+]?[\d,\.]+(\*)?(倍)?$', item.strip())
+        or item == "赤縮" or item=="赤拡" or re.match(r'\d{2}/\d{2}/\d{2}', item.strip()) ]
 
         print(predict_list)
 
@@ -325,7 +326,7 @@ def main_stock():
             predict_list[16:22],
             predict_list[24:30],
             predict_list[32:38],
-            predict_list[40:]
+            predict_list[39:]
         ]
         predict_data = pd.DataFrame(subset_list)
         predict_data = predict_data[[0,1, 2, 3, 4, 5]]
