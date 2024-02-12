@@ -178,7 +178,7 @@ def main_stock():
         market_cap = int(market_cap/10**8) #億円
 
         cashflow_df = pd.DataFrame()
-        cashflow_df = cashflow_df.cashflow.transpose()
+        cashflow_df = stock_info.cashflow.transpose()
         cashflow_df = cashflow_df[['Free Cash Flow',  'Operating Cash Flow', 'Investing Cash Flow']]
         cashflow_df['日付'] = df.index
         cashflow_df = cashflow_df[['日付', 'Free Cash Flow', 'Operating Cash Flow', 'Investing Cash Flow']]
