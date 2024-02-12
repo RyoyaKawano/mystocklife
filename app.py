@@ -180,7 +180,7 @@ def main_stock():
         cashflow_df = pd.DataFrame()
         cashflow_df = stock_info.cashflow.transpose()
         cashflow_df = cashflow_df[['Free Cash Flow',  'Operating Cash Flow', 'Investing Cash Flow']]
-        cashflow_df['日付'] = df.index
+        cashflow_df['日付'] = cashflow_df.index
         cashflow_df = cashflow_df[['日付', 'Free Cash Flow', 'Operating Cash Flow', 'Investing Cash Flow']]
         # インデックスをリセットして、'日付' 列が通常の列となるようにする
 
