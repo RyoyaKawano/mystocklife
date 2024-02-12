@@ -301,14 +301,40 @@ def main_stock():
         closing_schedule["決算種別"]  = pd.Series(kessan_syubetu)
 
 
+        html_qoq     = urlopen("https://kabutan.jp/stock/finance?code={stock_code}#hanki_name")
+        bsObj        = BeautifulSoup(html_qoq, "html.parser")
+        table        = bsObj.find("div", {"class":"fin_year_t0_d fin_year_result_d"})
+        for tag in table.findAll(["img", "a"]):
+            # タグとその内容の削除
+            tag.decompose()
+        predict_list = []
+        for td_tag in table:
+            predict_list.append(td_tag.text.replace('\n', '/').replace('\xa0', '/'))
+        predict_list = predict_list[1].split('/')
+        predict_list = [item for item in predict_list if item.replace('.', '', 1).replace(',', '').replace('-', '').isdigit()]
+        subset_list = [
+            predict_list[0:6],
+            predict_list[7:13],
+            predict_list[14:20],
+            predict_list[21:27],
+            predict_list[28:34],
+            predict_list[35:]
+        ]
+        predict_data = pd.DataFrame(subset_list)
+        predict_data = predict_data[[5, 0, 1, 2, 3, 4]]
+
+        # columns属性を設定
+        predict_data.columns = ["決算期", "売上高", "営業益", "経常利益", "最終益", "修正1株益"]
+        predict_data.loc[predict_data.index[-1], '決算期'] = "前期比"
 
         html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name,
                                 time_period=time_period, table=df, closing_schedule=closing_schedule, market_cap=market_cap,
-                                cashflow_df=cashflow_df)
+                                cashflow_df=cashflow_df, predict_data=predict_data)
+
 
     else:
      
-        html = render_template('index.html',table=None, graph_data=None, closing_schedule=None, cashflow_df=None)
+        html = render_template('index.html',table=None, graph_data=None, closing_schedule=None, cashflow_df=None, predict_data=None)
     return html
 
     # # return html
