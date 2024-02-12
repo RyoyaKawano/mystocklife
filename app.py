@@ -181,6 +181,7 @@ def main_stock():
         cashflow_df = stock_info.cashflow.transpose()
         cashflow_df = cashflow_df[['Free Cash Flow',  'Operating Cash Flow', 'Investing Cash Flow', 'Financing Cash Flow']]/10**6
         cashflow_df = cashflow_df.astype(int)
+        cashflow_df = cashflow_df.index.strftime('%Y/%m')
         cashflow_df['日付'] = cashflow_df.index.astype(str)
         cashflow_df = cashflow_df[['日付', 'Free Cash Flow', 'Operating Cash Flow', 'Investing Cash Flow', 'Financing Cash Flow']]
         cashflow_df = cashflow_df.rename(columns={'Free Cash Flow': 'フリーキャッシュフロー', 'Operating Cash Flow': '営業キャッシュフロー', 'Investing Cash Flow': '投資キャッシュフロー', 'Financing Cash Flow':'財務キャッシュフロー'})
