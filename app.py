@@ -175,8 +175,9 @@ def main_stock():
         stock_info = yf.Ticker(stock_code_T)
 
         #時価総額の取得
-        market_cap = stock_info.info['marketCap']
+        market_cap = stock_info.info['marketCap'].apply(lambda x: '{:,}'.format(x))
         market_cap = int(market_cap/10**8) #億円
+        market_cap = "{:,}".format(market_cap)
 
         cashflow_df = pd.DataFrame()
         cashflow_df = stock_info.cashflow.transpose()
@@ -334,7 +335,7 @@ def main_stock():
         # columns属性を設定廃
         predict_data.columns = ["決算期", "売上高", "営業益", "経常利益", "最終益", "修正1株益"]
         predict_data.loc[predict_data.index[-1], '決算期'] = "前期比"
-
+        predict_data['決算期'] = predict_data['決算期'].apply(lambda x: x.replace('.', '/'))        
         html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name,
                                 time_period=time_period, table=df, closing_schedule=closing_schedule, market_cap=market_cap,
                                 cashflow_df=cashflow_df, predict_data=predict_data)
