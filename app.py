@@ -16,6 +16,7 @@ import jpholiday
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import os
+import re
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
@@ -304,26 +305,32 @@ def main_stock():
         html_qoq     = urlopen(f"https://kabutan.jp/stock/finance?code={stock_code}#hanki_name")
         bsObj        = BeautifulSoup(html_qoq, "html.parser")
         table        = bsObj.find("div", {"class":"fin_year_t0_d fin_year_result_d"})
-        for tag in table.findAll(["img", "a"]):
+        table
+        for tag in table.findAll(["img"]):
             # タグとその内容の削除
             tag.decompose()
         predict_list = []
         for td_tag in table:
-            predict_list.append(td_tag.text.replace('\n', '/').replace('\xa0', '/'))
-        predict_list = predict_list[1].split('/')
-        predict_list = [item for item in predict_list if item.replace('.', '', 1).replace(',', '').replace('-', '').isdigit()]
+            predict_list.append(td_tag.text.replace('\n', '~').replace('\xa0', '~'))
+        predict_list = predict_list[1].split('~')
+        print(predict_list)
+        predict_list = [item for item in predict_list if item.replace('.', '', 1).replace(',', '').replace('-', '').isdigit() or item == '－' or re.match(r'^-?[\d,\.]+(\*)?(倍)?$', item.strip())  or item == "赤縮" or item=="赤拡" or re.match(r'\d{2}/\d{2}/\d{2}', item.strip()) ]
+
+        print(predict_list)
+
+
         subset_list = [
             predict_list[0:6],
-            predict_list[7:13],
-            predict_list[14:20],
-            predict_list[21:27],
-            predict_list[28:34],
-            predict_list[35:]
+            predict_list[8:14],
+            predict_list[16:22],
+            predict_list[24:30],
+            predict_list[32:38],
+            predict_list[40:]
         ]
         predict_data = pd.DataFrame(subset_list)
-        predict_data = predict_data[[5, 0, 1, 2, 3, 4]]
+        predict_data = predict_data[[0,1, 2, 3, 4, 5]]
 
-        # columns属性を設定
+        # columns属性を設定廃
         predict_data.columns = ["決算期", "売上高", "営業益", "経常利益", "最終益", "修正1株益"]
         predict_data.loc[predict_data.index[-1], '決算期'] = "前期比"
 
