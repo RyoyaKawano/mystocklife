@@ -171,6 +171,22 @@ def main_stock():
         # startdate = str(startdate)
         enddate = str(enddate)
 
+        stock_info = yf.Ticker(stock_code_T)
+
+        #時価総額の取得
+        market_cap = stock_info.info['marketCap']
+        market_cap = int(market_cap/10**8) #億円
+
+        cashflow_df = pd.DataFrame()
+        cashflow_df = cashflow_df.cashflow.transpose()
+        cashflow_df = cashflow_df[['Free Cash Flow',  'Operating Cash Flow', 'Investing Cash Flow']]
+        cashflow_df['日付'] = df.index
+        cashflow_df = cashflow_df[['日付', 'Free Cash Flow', 'Operating Cash Flow', 'Investing Cash Flow']]
+        # インデックスをリセットして、'日付' 列が通常の列となるようにする
+
+        cashflow_df = cashflow_df[::-1]
+        cashflow_df.reset_index(drop=True, inplace=True)
+
         stock_data = yf.download(stock_code_T, start=startdate, end=enddate)
         n225_data = yf.download("^N225", start=startdate, end=enddate)
 
@@ -248,13 +264,12 @@ def main_stock():
         # 1行目を削除
         df = df[1:]
                 # インデックスにある '日付' 列を一時的に新しい列に移動
-        df['新しい日付'] = df.index
+        df['日付'] = df.index
 
         # インデックスをリセットして、'日付' 列が通常の列となるようにする
         df.reset_index(drop=True, inplace=True)
 
-        # '新しい日付' 列を '日付' 列として置き換える
-        df.rename(columns={'新しい日付': '日付'}, inplace=True)
+
 
         # 列の順序を調整する
         df = df[['日付', '売上高', '営業利益', '経常利益', '当期利益', '1株利益', '1株配当', '1株純利益', 'ROE', '営業利益率', '自己資本比率']]
@@ -284,11 +299,13 @@ def main_stock():
 
 
 
-        html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name, time_period=time_period, table=df, closing_schedule=closing_schedule)
+        html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name,
+                                time_period=time_period, table=df, closing_schedule=closing_schedule, market_cap=market_cap,
+                                cashflow_df=cashflow_df)
 
     else:
      
-        html = render_template('index.html',table=None, graph_data=None, closing_schedule=None)
+        html = render_template('index.html',table=None, graph_data=None, closing_schedule=None, cashflow_df=None)
     return html
 
     # # return html
