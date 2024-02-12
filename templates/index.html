@@ -104,7 +104,7 @@
 {% endif %}
 
 {% if cashflow_df is not none%}
-<p>キャッシュフロー</p>
+<p>キャッシュフロー(百万)</p>
 
 <table class="styled-table">
     <thead>
@@ -112,6 +112,8 @@
             <th>{{ cashflow_df.columns[0] }}</th>
             <th>{{ cashflow_df.columns[1] }}</th>
             <th>{{ cashflow_df.columns[2] }}</th>
+            <th>{{ cashflow_df.columns[3] }}</th>
+            <th>{{ cashflow_df.columns[4] }}</th>
 
         </tr>
     </thead>
@@ -121,6 +123,8 @@
             <td>{{ row[1][0] }}</td>
             <td>{{ row[1][1] }}</td>
             <td>{{ row[1][2] }}</td>
+            <td>{{ row[1][3] }}</td>
+            <td>{{ row[1][4] }}</td>
 
         </tr>
         {% endfor %}
