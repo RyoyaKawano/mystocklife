@@ -175,7 +175,7 @@ def main_stock():
         stock_info = yf.Ticker(stock_code_T)
 
         #時価総額の取得
-        market_cap = stock_info.info['marketCap'].apply(lambda x: '{:,}'.format(x))
+        market_cap = stock_info.info['marketCap']
         market_cap = int(market_cap/10**8) #億円
         market_cap = "{:,}".format(market_cap)
 
