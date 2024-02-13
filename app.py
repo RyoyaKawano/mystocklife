@@ -352,7 +352,7 @@ def main_stock():
             link_list.append(tag.get('href'))
             tag = str(tag.find_all('div', {'class':'newsFeed_item_title'}))
             content_list.append(re.sub(r'<[^>]*>', '', tag))
-        contents_list = [string.strip('[]') for string in contents_list]
+        content_list = [string.strip('[]') for string in content_list]
  
         html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name,
                                 time_period=time_period, table=df, closing_schedule=closing_schedule, market_cap=market_cap,
