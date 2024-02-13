@@ -159,7 +159,7 @@
 {% endif %}
 
 {% if predict_data is not none%}
-<p>業績予想</p>
+<p>業績予想(百万)</p>
 
 <table class="styled-table">
     <thead>
@@ -186,6 +186,22 @@
     </tbody>
 </table>
 {% endif %}
+{% if closing_schedule is not none%}
+<p>{{stock_name}}に関連したニュース</p>
 
+<table class="styled-table">
+    <tbody>
+        
+        <tr>
+            {% for link in link_list %}
+            {% for content in content_list %}
+            <td><a href="{{link}}">{{content}}</a></td>
+            {% endfor %}
+            {% endfor %}
+        </tr>
+        
+    </tbody>
+</table>
+{% endif %}
 </body>
 </html>

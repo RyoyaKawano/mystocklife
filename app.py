@@ -336,14 +336,34 @@ def main_stock():
         predict_data.columns = ["決算期", "売上高", "営業益", "経常利益", "最終益", "修正1株益"]
         predict_data.loc[predict_data.index[-1], '決算期'] = "前期比"
         predict_data['決算期'] = predict_data['決算期'].apply(lambda x: x.replace('.', '/'))        
+ 
+         # url、パラメータを設定してリクエストを送る
+        res = requests.get(f'https://news.yahoo.co.jp/search?p={stock_name}&ei=utf-8&aq=0')
+        soup = BeautifulSoup(res.content, "html.parser")
+
+        soup = soup.find_all('a', {'class': 'sc-hZiVAQ iJQlOJ newsFeed_item_link'})
+        soup_list = [element for element in soup]
+
+        link_list = []
+        content_list = []
+
+        for tag in soup_list:
+            link_list.append(tag.get('href'))
+            tag = str(tag.find_all('div', {'class':'newsFeed_item_title'}))
+            content_list.append(re.sub(r'<[^>]*>', '', tag))
+ 
+ 
         html = render_template('index.html', graph_data=graph_data, n225_graph=n225_graph, stock_name_show=stock_name,
                                 time_period=time_period, table=df, closing_schedule=closing_schedule, market_cap=market_cap,
-                                cashflow_df=cashflow_df, predict_data=predict_data)
+                                cashflow_df=cashflow_df, predict_data=predict_data, link_list=link_list, content_list=content_list)
+
+
+
 
 
     else:
      
-        html = render_template('index.html',table=None, graph_data=None, closing_schedule=None, cashflow_df=None, predict_data=None)
+        html = render_template('index.html',table=None, graph_data=None, closing_schedule=None, cashflow_df=None, predict_data=None, link_list=None, content_list=None)
     return html
 
     # # return html
