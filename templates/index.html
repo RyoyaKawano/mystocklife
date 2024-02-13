@@ -191,11 +191,11 @@
 
 <table class="styled-table">
     <tbody>
+        {% for i in range(link_list|length) %}
         <tr>
-            {% for i in range(link_list|length) %}
             <td><a href="{{ link_list[i] }}">{{ content_list[i] }}</a></td>
-            {% endfor %}
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endif %}
