@@ -79,10 +79,5 @@ img {
     background-color: white;
 }
 
-.news-table tbody tr:nth-child(even) {
-    background-color: #4C444D;
-}
 
-.news-table tbody tr:hover {
-    background-color: #4C444D;
-}
+
