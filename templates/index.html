@@ -186,17 +186,15 @@
     </tbody>
 </table>
 {% endif %}
-{% if closing_schedule is not none%}
+{% if content_list is not none%}
 <p>{{stock_name}}に関連したニュース</p>
 
 <table class="styled-table">
     <tbody>
         
         <tr>
-            {% for link in link_list %}
-            {% for content in content_list %}
+            {% for link, content in zip(link_list, content_list) %}
             <td><a href="{{link}}">{{content}}</a></td>
-            {% endfor %}
             {% endfor %}
         </tr>
         
