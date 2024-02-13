@@ -68,17 +68,14 @@ img {
 }
 
 
-.news-table th,
 .news-table td {
     padding: 8px;
+    color: white; 
     text-align: left;
     border-bottom: 1px solid #ddd;
 
 }
 
-.news-table th {
-    background-color: white;
-}
 
 .news-table tbody tr:nth-child(even) {
     background-color: #4C444D;
