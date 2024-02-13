@@ -70,12 +70,14 @@ img {
 
 .news-table td {
     padding: 8px;
-    color: white; 
+
     text-align: left;
     border-bottom: 1px solid #ddd;
 
 }
-
+.styled-table th {
+    background-color: white;
+}
 
 .news-table tbody tr:nth-child(even) {
     background-color: #4C444D;
