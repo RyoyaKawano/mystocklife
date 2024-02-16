@@ -342,7 +342,7 @@ def main_stock():
         res = requests.get(f'https://news.yahoo.co.jp/search?p={stock_name}&ei=utf-8&aq=0')
         soup = BeautifulSoup(res.content, "html.parser")
 
-        soup = soup.find_all('a', {'class': 'sc-hZiVAQ iJQlOJ newsFeed_item_link'})
+        soup = soup.find_all('a', {'class': 'sc-bhBwAB glkFbU newsFeed_item_link'})
         soup_list = [element for element in soup]
 
         link_list = []
