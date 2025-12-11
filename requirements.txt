@@ -1,12 +1,12 @@
-requests
-yfinance
+requests==2.32.3
+yfinance==0.2.66
 pandas==2.0.1
-matplotlib
+matplotlib==3.10.8
 datetime
-flask 
+flask==3.1.2
 pybase64
 datetime
-jpholiday
+jpholiday==1.0.2
 bs4==0.0.1
 xlrd==2.0.1
 openpyxl
